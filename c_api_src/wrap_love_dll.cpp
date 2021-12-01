@@ -3552,14 +3552,15 @@ namespace wrap
             graphicsInstance->intersectScissor(rect);
         });
     }
-    void wrap_love_dll_graphics_getScissor(int *out_x, int *out_y, int *out_w, int *out_h)
+    bool4 wrap_love_dll_graphics_getScissor(int *out_x, int *out_y, int *out_w, int *out_h)
     {
         Rect rect;
-        graphicsInstance->getScissor(rect);
+        bool success = graphicsInstance->getScissor(rect);
         *out_x = rect.x;
         *out_y = rect.y;
         *out_w = rect.w;
         *out_h = rect.h;
+        return success;
 
     }
     void wrap_love_dll_graphics_setStencilTest(int compare_type, int compareValue)

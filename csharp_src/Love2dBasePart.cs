@@ -2463,10 +2463,12 @@ namespace Love
         /// </summary>
         /// <returns>
         /// </returns>
-        public static Rectangle GetScissor()
+        public static Rectangle? GetScissor()
         {
             int out_x, out_y, out_w, out_h;
-            Love2dDll.wrap_love_dll_graphics_getScissor(out out_x, out out_y, out out_w, out out_h);
+            bool success = Love2dDll.wrap_love_dll_graphics_getScissor(out out_x, out out_y, out out_w, out out_h);
+            if (!success)
+                return null;
             return new Rectangle(out_x, out_y, out_w, out_h);
         }
 

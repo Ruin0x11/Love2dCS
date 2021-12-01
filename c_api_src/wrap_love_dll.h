@@ -568,7 +568,7 @@ namespace wrap
     extern "C" LOVE_EXPORT void wrap_love_dll_graphics_setScissor();
     extern "C" LOVE_EXPORT bool4 wrap_love_dll_graphics_setScissor_xywh(int x, int y, int w, int h);
     extern "C" LOVE_EXPORT bool4 wrap_love_dll_graphics_intersectScissor(int x, int y, int w, int h);
-    extern "C" LOVE_EXPORT void wrap_love_dll_graphics_getScissor(int *out_x, int *out_y, int *out_w, int *out_h);
+    extern "C" LOVE_EXPORT bool4 wrap_love_dll_graphics_getScissor(int *out_x, int *out_y, int *out_w, int *out_h);
     extern "C" LOVE_EXPORT void wrap_love_dll_graphics_setStencilTest(int compare_type, int compareValue);
     extern "C" LOVE_EXPORT void wrap_love_dll_graphics_getStencilTest(int *out_compare_type, int *out_compareValue);
     extern "C" LOVE_EXPORT void wrap_love_dll_graphics_setColor(float r, float g, float b, float a);

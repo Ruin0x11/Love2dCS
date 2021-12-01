@@ -1202,7 +1202,7 @@ namespace Love
         internal static delegateFunc_wrap_love_dll_graphics_intersectScissor wrap_love_dll_graphics_intersectScissor = (int x, int y, int w, int h) => CheckCAPIException(wrap_love_dll_graphics_intersectScissor_value(x, y, w, h));
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        internal delegate void delegateFunc_wrap_love_dll_graphics_getScissor(out int out_x, out int out_y, out int out_w, out int out_h);
+        internal delegate bool delegateFunc_wrap_love_dll_graphics_getScissor(out int out_x, out int out_y, out int out_w, out int out_h);
         internal static delegateFunc_wrap_love_dll_graphics_getScissor wrap_love_dll_graphics_getScissor_value = LoadFunction<delegateFunc_wrap_love_dll_graphics_getScissor>("wrap_love_dll_graphics_getScissor");
         internal static delegateFunc_wrap_love_dll_graphics_getScissor wrap_love_dll_graphics_getScissor = wrap_love_dll_graphics_getScissor_value;
 
