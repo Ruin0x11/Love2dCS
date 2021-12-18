@@ -59,24 +59,35 @@ namespace Love
 
             var linuxLibTableArray = new string[]
             {
-                    "libstdc++/libstdc++.so.6",
-                    "lib/x86_64-linux-gnu/libgcc_s.so.1",
-                    "lib/x86_64-linux-gnu/libz.so.1",
-                    "lib/x86_64-linux-gnu/libpng12.so.0",
-
-                    "usr/lib/x86_64-linux-gnu/libatomic.so.1",
-                    "usr/lib/x86_64-linux-gnu/libtheoradec.so.1",
-                    "usr/lib/x86_64-linux-gnu/libvorbis.so.0",
-                    "usr/lib/x86_64-linux-gnu/libvorbisfile.so.3",
-                    "usr/lib/x86_64-linux-gnu/libogg.so.0",
-                    "usr/lib/x86_64-linux-gnu/libfreetype.so.6",
-
-                    "usr/lib/libSDL2-2.0.so.0",
+                    "usr/lib/ld-linux-x86-64.so.2",
+                    "usr/lib/libbrotlicommon.so.1",
+                    "usr/lib/libbrotlidec.so.1",
+                    "usr/lib/libbz2.so.1.0",
+                    "usr/lib/libc.so.6",
+                    "usr/lib/libdl.so.2",
+                    "usr/lib/libfreetype.so.6",
+                    "usr/lib/libgcc_s.so.1",
+                    "usr/lib/libgdiplus.so.0.0.0",
+                    "usr/lib/libglib-2.0.so.0",
+                    "usr/lib/libgraphite2.so.3",
+                    "usr/lib/libharfbuzz.so.0",
                     "usr/lib/libluajit-5.1.so.2",
                     "usr/lib/libmodplug.so.1",
-                    "usr/lib/x86_64-linux-gnu/libopenal.so.1",
-                    "usr/lib/x86_64-linux-gnu/libmpg123.so.0",
-                    "usr/lib/liblove-11.3.so",
+                    "usr/lib/libmpg123.so.0",
+                    "usr/lib/libm.so.6",
+                    "usr/lib/libogg.so.0",
+                    "usr/lib/libopenal.so.1",
+                    "usr/lib/libpcre.so.1",
+                    "usr/lib/libpng16.so.16",
+                    "usr/lib/libpthread.so.0",
+                    "usr/lib/libSDL2-2.0.so.0",
+                    "usr/lib/libstdc++.so.6",
+                    "usr/lib/libtheoradec.so.1",
+                    "usr/lib/libtheora.so.0",
+                    "usr/lib/libvorbisfile.so.3",
+                    "usr/lib/libvorbis.so.0",
+                    "usr/lib/libz.so.1",
+                    "usr/lib/libliblove.so"
             };
 
             var macLibTableArray = new string[]
