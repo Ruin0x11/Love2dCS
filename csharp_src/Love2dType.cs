@@ -2056,6 +2056,10 @@ namespace Love
         {
             Love2dDll.wrap_love_dll_type_SpriteBatch_setColor(p, r, g, b, a);
         }
+        public void SetColor(Color color)
+        {
+            Love2dDll.wrap_love_dll_type_SpriteBatch_setColor(p, color.Rf, color.Gf, color.Bf, color.Af);
+        }
 
         // If no color has been set with SpriteBatch:setColor or the current SpriteBatch color has been cleared, this method will return false.
         public Tuple<bool, Vector4> GetColor()
