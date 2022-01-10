@@ -1098,12 +1098,12 @@ namespace Love
         //    Love2dDll.wrap_love_dll_joystick_setGamepadMapping(guid, (int)gp_inputType_type, (int)j_inputType_type, inputIndex, (int)hat_type, out out_success);
         //    return out_success;
         //}
-        //public static bool LoadGamepadMappings(byte[] str)
-        //{
-        //    bool out_success = false;
-        //    Love2dDll.wrap_love_dll_joystick_loadGamepadMappings(str, out out_success);
-        //    return out_success;
-        //}
+        public static bool LoadGamepadMappings(byte[] str)
+        {
+            bool out_success = false;
+            Love2dDll.wrap_love_dll_joystick_loadGamepadMappings(str, out out_success);
+            return out_success;
+        }
         public static string SaveGamepadMappings()
         {
             IntPtr out_str = IntPtr.Zero;
