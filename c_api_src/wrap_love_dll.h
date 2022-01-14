@@ -330,7 +330,7 @@ namespace wrap
     extern "C" LOVE_EXPORT bool4 wrap_love_dll_windows_setMode_w_h(int width, int height);
     extern "C" LOVE_EXPORT bool4 wrap_love_dll_windows_setMode_w_h_setting(int width, int height, bool4 fullscreen, int fstype, bool4 vsync, int msaa, int depth, bool4 stencil, bool4 resizable, int minwidth, int minheight, bool4 borderless, bool4 centered, int display, bool4 highdpi, double refreshrate, bool4 useposition, int x, int y);
     extern "C" LOVE_EXPORT void wrap_love_dll_windows_getMode(int *out_width, int *out_height, bool4 *out_fullscreen, int *out_fstype, bool4 *out_vsync, int *out_msaa, int *out_depth, bool4 *out_stencil, bool4 *out_resizable, int *out_minwidth, int *out_minheight, bool4 *out_borderless, bool4 *out_centered, int *out_display, bool4 *out_highdpi, double *out_refreshrate, bool4 *out_useposition, int *out_x, int *out_y);
-    extern "C" LOVE_EXPORT void wrap_love_dll_windows_getFullscreenModes(int displayindex, Int2*** out_modes, int *out_modes_length);
+    extern "C" LOVE_EXPORT void wrap_love_dll_windows_getFullscreenModes(int displayindex, Int2** out_modes, int *out_modes_length);
     extern "C" LOVE_EXPORT void wrap_love_dll_windows_setFullscreen(bool4 fullscreen, int fstype, bool4 *out_success);
     extern "C" LOVE_EXPORT void wrap_love_dll_windows_getFullscreen(bool4 *out_fullscreen, int *out_fstype);
     extern "C" LOVE_EXPORT void wrap_love_dll_windows_isOpen(bool4 *out_isopen);

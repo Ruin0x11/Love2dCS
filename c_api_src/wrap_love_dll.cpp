@@ -1183,16 +1183,15 @@ namespace wrap
         *out_y = settings.y;
     }
 
-    void wrap_love_dll_windows_getFullscreenModes(int displayindex, Int2*** out_modes, int *out_modes_length)
+    void wrap_love_dll_windows_getFullscreenModes(int displayindex, Int2** out_modes, int *out_modes_length)
     {
         std::vector<window::Window::WindowSize> modes = windowInstance->getFullscreenSizes(displayindex);
         *out_modes_length = modes.size();
-        *out_modes = new Int2*[modes.size()];
+        *out_modes = new Int2[modes.size()];
         for (size_t i = 0; i <  modes.size(); i++)
         {
-            (*out_modes)[i] = new Int2();
-            (*out_modes)[i]->x = modes[i].width;
-            (*out_modes)[i]->y = modes[i].height;
+            (*out_modes)[i].x = modes[i].width;
+            (*out_modes)[i].y = modes[i].height;
         }
     }
 
