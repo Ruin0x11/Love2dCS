@@ -717,6 +717,8 @@ namespace Love
                 Graphics.Init();
                 Special.Init();
 
+                Misc.InputBoost.Init();
+
                 if (bootConfig.WindowTitle != null)
                 {
                     Window.SetTitle(bootConfig.WindowTitle);

@@ -6,6 +6,15 @@ namespace Love.Misc
 {
     public static class InputBoost
     {
+        private static KeyConstant[] _keys = Array.Empty<KeyConstant>();
+        private static GamepadButton[] _buttons = Array.Empty<GamepadButton>();
+
+        public static void Init()
+        {
+            _keys = (KeyConstant[])System.Enum.GetValues(typeof(KeyConstant));
+            _buttons = (GamepadButton[])System.Enum.GetValues(typeof(GamepadButton));
+        }
+
         #region Mouse
         const int RememberButtonCount = 32;
         static bool[] lastBtnDown = new bool[RememberButtonCount];
@@ -50,7 +59,6 @@ namespace Love.Misc
         }
         #endregion
 
-
         #region Keyboard
         static HashSet<KeyConstant> lastKeyboard = new HashSet<KeyConstant>();
         static HashSet<KeyConstant> currentKeyboard = new HashSet<KeyConstant>();
@@ -58,7 +66,7 @@ namespace Love.Misc
         {
             lastKeyboard = currentKeyboard;
             currentKeyboard = new HashSet<KeyConstant>();
-            foreach (var key in (KeyConstant[])System.Enum.GetValues(typeof(KeyConstant)))
+            foreach (var key in _keys)
             {
                 if (Keyboard.IsDown(key))
                 {
@@ -102,7 +110,7 @@ namespace Love.Misc
                         currentGamePadPressedMemory.Add(guid + i);
                     }
                 }
-                foreach (var gbtn in (GamepadButton[])System.Enum.GetValues(typeof(GamepadButton)))
+                foreach (var gbtn in _buttons)
                 {
                     if (joy.IsGamepadDown(gbtn))
                     {
@@ -114,7 +122,7 @@ namespace Love.Misc
         public static GamepadButton[] GetGamepadDown(this Joystick joystick)
         {
             List<GamepadButton> list = new List<GamepadButton>();
-            foreach (var gbtn in (GamepadButton[])System.Enum.GetValues(typeof(GamepadButton)))
+            foreach (var gbtn in _buttons)
             {
                 string name = joystick.GetGUID() + gbtn;
                 if (currentGamePadPressedMemory.Contains(name))
@@ -127,7 +135,7 @@ namespace Love.Misc
         public static GamepadButton[] GetGamepadDownPrevious(this Joystick joystick)
         {
             List<GamepadButton> list = new List<GamepadButton>();
-            foreach (var gbtn in (GamepadButton[])System.Enum.GetValues(typeof(GamepadButton)))
+            foreach (var gbtn in _buttons)
             {
                 string name = joystick.GetGUID() + gbtn;
                 if (lastGamePadPressedMemory.Contains(name))
