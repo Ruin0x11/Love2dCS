@@ -1151,6 +1151,10 @@ namespace Love
         {
             Love2dDll.wrap_love_dll_type_Mesh_setVertexMap(p, vertexmaps, vertexmaps.Length);
         }
+        public void SetVertexMap(uint[] vertexmaps, int length)
+        {
+            Love2dDll.wrap_love_dll_type_Mesh_setVertexMap(p, vertexmaps, length);
+        }
         public uint[] GetVertexMap()
         {
             bool out_has_vertex_map = false;
