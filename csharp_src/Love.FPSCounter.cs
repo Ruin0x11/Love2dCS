@@ -12,7 +12,7 @@ namespace Love
         internal static void Step()
         {
             double now = Timer.GetSystemTime();
-            frameInOneSeconed = frameInOneSeconed.Where(item => item > (now - 1f)).ToList();
+            frameInOneSeconed.RemoveAll(item => item > (now - 1f));
             frameInOneSeconed.Add(now);
         }
 
