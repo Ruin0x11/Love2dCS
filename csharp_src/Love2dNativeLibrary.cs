@@ -5,12 +5,12 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using File = System.IO.File;
 using FileInfo = System.IO.FileInfo;
 using System.Text;
-using static System.Runtime.InteropServices.NativeLibrary;
 
 namespace Love
 {
@@ -42,7 +42,7 @@ namespace Love
             return;
 #endif
             
-            SetDllImportResolver(Assembly.GetExecutingAssembly(), DllImportResolver);
+            NativeLibrary.SetDllImportResolver(Assembly.GetExecutingAssembly(), DllImportResolver);
 
             byte[] Load(string zipName, string entryName)
             {

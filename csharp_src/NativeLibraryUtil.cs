@@ -100,11 +100,11 @@ namespace Love
         {
             // public const int RTLD_LAZY = 0x001;
             public const int RTLD_NOW = 0x002;
-            [DllImport("libc")]
+            [DllImport("libdl")]
             public static extern IntPtr dlopen(string fileName, int flags);
-            [DllImport("libc")]
+            [DllImport("libdl")]
             public static extern string dlerror();
-            [DllImport("libc")]
+            [DllImport("libdl")]
             public static extern IntPtr dlsym(IntPtr handle, string name);
 
             public Arch GetArch()

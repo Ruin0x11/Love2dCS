@@ -670,7 +670,17 @@ namespace Love
         
         private static IntPtr DllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
         {
-            if (libraryName == "love")
+            if (libraryName == "libdl")
+            {
+                // Newer versions of libc include the functionality of libdl, and libdl
+                // has been removed.
+                var libcPtr = NativeLibrary.Load("libc", assembly, searchPath);
+                if (NativeLibrary.GetExport(libcPtr, "dlopen") != IntPtr.Zero)
+                {
+                    return libcPtr;
+                }
+            }
+            else if (libraryName == "love")
             {
                 return NativeLibrary.Load("liblove.so", assembly, searchPath);
             }
