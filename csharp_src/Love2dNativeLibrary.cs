@@ -41,6 +41,8 @@ namespace Love
             Console.WriteLine(NativeLibraryUtil.NativlibTool.GetHashAssembly());
             return;
 #endif
+            
+            NativeLibrary.SetDllImportResolver(Assembly.GetExecutingAssembly(), DllImportResolver);
 
             byte[] Load(string zipName, string entryName)
             {
@@ -59,12 +61,10 @@ namespace Love
 
             var linuxLibTableArray = new string[]
             {
-                    "usr/lib/ld-linux-x86-64.so.2",
                     "usr/lib/libbrotlicommon.so.1",
                     "usr/lib/libbrotlidec.so.1",
                     "usr/lib/libbz2.so.1.0",
                     "usr/lib/libc.so.6",
-                    "usr/lib/libdl.so.2",
                     "usr/lib/libfreetype.so.6",
                     "usr/lib/libgcc_s.so.1",
                     "usr/lib/libgdiplus.so.0.0.0",

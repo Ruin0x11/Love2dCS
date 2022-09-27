@@ -3,6 +3,8 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -11,7 +13,7 @@ namespace Love
     /// <summary>
     /// <para>继承本类，作为 Boot.Run 的启动参数。</para>
     /// <para>Inherit this class as the startup parameter for Boot.Run()</para>
-    /// </summary>
+    /// </summary>jkjk
     abstract public class Scene
     {
         /// <summary>
@@ -665,6 +667,17 @@ namespace Love
         /// <para>Event.Quit() will lead QuitFlag = true, with will lead Boot.Run()  quit </para>
         /// </summary>
         public static bool QuitFlag = false;
+
+        private static IntPtr DllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
+        {
+            if (libraryName == "love")
+            {
+                return NativeLibrary.Load("liblove.so", assembly, searchPath);
+            }
+
+            // Otherwise, fallback to default import resolver.
+            return IntPtr.Zero;
+        }
 
         static public void Init(BootConfig bootConfig = null)
         {

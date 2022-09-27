@@ -74,7 +74,7 @@ namespace Love
                 libPtr = LoadLibrary(path);
                 if (libPtr == IntPtr.Zero)
                 {
-                    errorInfo = ($"load lib error: {path} {Marshal.GetLastWin32Error()}");
+                    errorInfo = ($"Fload lib error: {path} {Marshal.GetLastWin32Error()}");
                     return false;
                 }
 
