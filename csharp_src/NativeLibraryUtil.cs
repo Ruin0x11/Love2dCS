@@ -100,11 +100,11 @@ namespace Love
         {
             // public const int RTLD_LAZY = 0x001;
             public const int RTLD_NOW = 0x002;
-            [DllImport("libdl")]
+            [DllImport("libc")]
             public static extern IntPtr dlopen(string fileName, int flags);
-            [DllImport("libdl")]
+            [DllImport("libc")]
             public static extern string dlerror();
-            [DllImport("libdl")]
+            [DllImport("libc")]
             public static extern IntPtr dlsym(IntPtr handle, string name);
 
             public Arch GetArch()
@@ -175,17 +175,15 @@ namespace Love
                 {
                     try
                     {
-                        var content = lib.LibraryContentGenerator() ?? throw new Exception(" LibraryContentGenerator return null !");
+                        var content = lib.LibraryContentGenerator();
                         WriteContentToDir(content, Path.Combine(tempDir, lib.FullPath));
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("error on load " + Path.Combine(tempDir, lib.FullPath) + " " + ex);
+                        throw new Exception("error on load " + Path.Combine(tempDir, lib.FullPath), ex);
                     }
                 }
             }
-
-
 
             public static byte[] ReadFully(System.IO.Stream input)
             {

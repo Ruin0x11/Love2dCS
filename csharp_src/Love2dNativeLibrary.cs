@@ -5,12 +5,12 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using File = System.IO.File;
 using FileInfo = System.IO.FileInfo;
 using System.Text;
+using static System.Runtime.InteropServices.NativeLibrary;
 
 namespace Love
 {
@@ -41,6 +41,8 @@ namespace Love
             Console.WriteLine(NativeLibraryUtil.NativlibTool.GetHashAssembly());
             return;
 #endif
+            
+            SetDllImportResolver(Assembly.GetExecutingAssembly(), DllImportResolver);
 
             byte[] Load(string zipName, string entryName)
             {
@@ -59,15 +61,13 @@ namespace Love
 
             var linuxLibTableArray = new string[]
             {
-                    "usr/lib/ld-linux-x86-64.so.2",
                     "usr/lib/libbrotlicommon.so.1",
                     "usr/lib/libbrotlidec.so.1",
                     "usr/lib/libbz2.so.1.0",
                     "usr/lib/libc.so.6",
-                    "usr/lib/libdl.so.2",
                     "usr/lib/libfreetype.so.6",
                     "usr/lib/libgcc_s.so.1",
-                    "usr/lib/libgdiplus.so.0.0.0",
+                    //"usr/lib/libgdiplus.so.0.0.0",
                     "usr/lib/libglib-2.0.so.0",
                     "usr/lib/libgraphite2.so.3",
                     "usr/lib/libharfbuzz.so.0",
@@ -77,9 +77,9 @@ namespace Love
                     "usr/lib/libm.so.6",
                     "usr/lib/libogg.so.0",
                     "usr/lib/libopenal.so.1",
-                    "usr/lib/libpcre.so.1",
+                    //"usr/lib/libpcre.so.1",
                     "usr/lib/libpng16.so.16",
-                    "usr/lib/libpthread.so.0",
+                    //"usr/lib/libpthread.so.0",
                     "usr/lib/libSDL2-2.0.so.0",
                     "usr/lib/libstdc++.so.6",
                     "usr/lib/libtheoradec.so.1",
@@ -159,7 +159,7 @@ namespace Love
                 }
             }
 
-            return null;
+            throw new FileNotFoundException($"Cannot find file {entryName} in lib stream!");
         }
 
         public static byte[] ReadFully(System.IO.Stream input)
