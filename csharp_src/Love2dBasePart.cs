@@ -388,6 +388,7 @@ namespace Love
 
         public static bool Init()
         {
+            Log.Debug($"Init Timer...");
             if (startTimer.HasValue == false)
             {
                 startTimer = GetTimeRaw();
@@ -540,6 +541,7 @@ namespace Love
 
         public static bool Init()
         {
+            Log.Debug($"Init Window...");
             var res = Love2dDll.wrap_love_dll_windows_open_love_window();
             return res;
         }
@@ -1032,6 +1034,7 @@ namespace Love
 
         public static void Init()
         {
+            Log.Debug($"Init Touch...");
             Love2dDll.wrap_love_dll_touch_open_love_touch();
         }
         public static TouchInfo[] GetTouches()
@@ -1070,6 +1073,7 @@ namespace Love
     {
         public static void Init()
         {
+            Log.Debug($"Init Joystick...");
             Love2dDll.wrap_love_dll_joystick_open_love_joystick();
         }
         public static Joystick[] GetJoysticks()
@@ -1130,6 +1134,7 @@ namespace Love
         /// <returns></returns>
         public static bool Init(string args)
         {
+            Log.Debug($"Init FileSystem...");
             Love2dDll.wrap_love_dll_filesystem_open_love_filesystem();
             return Love2dDll.wrap_love_dll_filesystem_init(DllTool.GetNullTailUTF8Bytes(args));
         }
@@ -1508,6 +1513,7 @@ namespace Love
 
         public static bool Init()
         {
+            Log.Debug($"Init Sound...");
             return Love2dDll.wrap_love_dll_sound_luaopen_love_sound();
         }
     }
@@ -1542,6 +1548,7 @@ namespace Love
 
         public static bool Init()
         {
+            Log.Debug($"Init Audio...");
             return Love2dDll.wrap_love_dll_audio_open_love_audio();
         }
 
@@ -1822,6 +1829,7 @@ namespace Love
 
         public static bool Init()
         {
+            Log.Debug($"Init Image...");
             return Love2dDll.wrap_love_dll_image_open_love_image();
         }
 
@@ -1922,6 +1930,7 @@ namespace Love
 
         public static bool Init()
         {
+            Log.Debug($"Init Font...");
             return Love2dDll.wrap_love_dll_font_open_love_font();
         }
     }
@@ -1942,6 +1951,7 @@ namespace Love
 
         public static bool Init()
         {
+            Log.Debug($"Init Video...");
             return Love2dDll.wrap_love_dll_video_open_love_video();
         }
 
@@ -2206,6 +2216,7 @@ namespace Love
 
         public static bool Init()
         {
+            Log.Debug($"Init Graphics...");
             Love2dDll.wrap_love_dll_graphics_open_love_graphics();
             Love.Love2dGraphicsShaderBoot.Init();
             return true;

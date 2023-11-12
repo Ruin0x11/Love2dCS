@@ -18,6 +18,7 @@ namespace Love
         /// <param name="exitStatus">The program exit status to use when closing the application.</param>
         public static void Quit(int exitStatus = 0)
         {
+            Log.Debug($"Init Event...");
             Environment.ExitCode = exitStatus;
             Boot.QuitFlag = true;
         }

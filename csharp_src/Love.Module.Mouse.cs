@@ -53,6 +53,7 @@ namespace Love
     {
         public static bool Init()
         {
+            Log.Debug($"Init Mouse...");
             return Love2dDll.wrap_love_dll_open_love_mouse();
         }
 

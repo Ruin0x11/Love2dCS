@@ -16,6 +16,7 @@ namespace Love
         /// <returns></returns>
         public static bool Init()
         {
+            Log.Debug($"Init Keyboard...");
             return Love2dDll.wrap_love_dll_keyboard_open_love_keyboard();
         }
 

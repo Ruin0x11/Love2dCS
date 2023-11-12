@@ -12,6 +12,7 @@ namespace Love
     /// </summary>
     public static class Log
     {
+        public static bool IsPrintDebug = true;
         public static bool IsPrintInfo = true;
         public static bool IsPrintWarnning = true;
         public static bool IsPrintError = true;
@@ -33,6 +34,27 @@ namespace Love
             /// use System.Diagnostics.Trace.WriteLine to log
             /// </summary>
             DiagnosticsTrace,
+        }
+
+        public static void Debug(object info)
+        {
+            if (IsPrintDebug == false)
+                return;
+
+            switch (Target)
+            {
+                case TargetType.DiagnosticsTrace:
+                    System.Diagnostics.Trace.WriteLine(info);
+                    break;
+
+                case TargetType.DiagnosticsDubug:
+                    System.Diagnostics.Debug.WriteLine(info);
+                    break;
+
+                default:
+                    Console.WriteLine(info);
+                    break;
+            }
         }
 
         public static void Info(object info)

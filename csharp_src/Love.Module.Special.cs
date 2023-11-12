@@ -51,6 +51,7 @@ namespace Love
         /// <returns></returns>
         public static bool Init()
         {
+            Log.Debug($"Init Special...");
             return Love2dDll.wrap_love_dll_system_open_love_system_module();
         }
 
