@@ -175,17 +175,15 @@ namespace Love
                 {
                     try
                     {
-                        var content = lib.LibraryContentGenerator() ?? throw new Exception(" LibraryContentGenerator return null !");
+                        var content = lib.LibraryContentGenerator();
                         WriteContentToDir(content, Path.Combine(tempDir, lib.FullPath));
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("error on load " + Path.Combine(tempDir, lib.FullPath) + " " + ex);
+                        throw new Exception("error on load " + Path.Combine(tempDir, lib.FullPath), ex);
                     }
                 }
             }
-
-
 
             public static byte[] ReadFully(System.IO.Stream input)
             {

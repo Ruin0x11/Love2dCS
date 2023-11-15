@@ -3,6 +3,8 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -665,6 +667,27 @@ namespace Love
         /// <para>Event.Quit() will lead QuitFlag = true, with will lead Boot.Run()  quit </para>
         /// </summary>
         public static bool QuitFlag = false;
+        
+        private static IntPtr DllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
+        {
+            if (libraryName == "libdl")
+            {
+                // Newer versions of libc include the functionality of libdl, and libdl
+                // has been removed.
+                var libcPtr = NativeLibrary.Load("libc", assembly, searchPath);
+                if (NativeLibrary.GetExport(libcPtr, "dlopen") != IntPtr.Zero)
+                {
+                    return libcPtr;
+                }
+            }
+            else if (libraryName == "love")
+            {
+                return NativeLibrary.Load("liblove.so", assembly, searchPath);
+            }
+
+            // Otherwise, fallback to default import resolver.
+            return IntPtr.Zero;
+        }
 
         static public void Init(BootConfig bootConfig = null)
         {
@@ -691,7 +714,7 @@ namespace Love
                 catch (Exception e)
                 {
                     Log.Error(e);
-                    throw e;
+                    throw;
                 }
 
                 if (bootConfig.DefaultRandomSeed.HasValue)
