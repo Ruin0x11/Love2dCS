@@ -27,6 +27,8 @@ namespace Love
             return funcPtr;
         }
 
+        public static bool UseDebugLibs { get; set; } = false;
+
         public static void InitNativeLibrary()
         {
 #if _LOVE_SHARP_DEBUG_SELF_GUID_f320fj032jf2j3fj2039
@@ -107,12 +109,19 @@ namespace Love
             var pt = NativeLibraryUtil.LibraryLoader.GetPlatform(out var ixoader);
             Log.Info("Work on platform : " + pt);
 
+            NativeLibraryUtil.LibraryContent[] LoadLibraryContent(string[] libTableArray, string zipName)
+            {
+                if (UseDebugLibs)
+                    zipName += "_debug";
+                return libTableArray.Select(libPath => new NativeLibraryUtil.LibraryContent(libPath, () => Load(zipName, libPath))).ToArray();
+            }
+
             var config = new NativeLibraryUtil.LibraryConfig()
             {
-                Linux64 = linuxLibTableArray.Select(libPath => new NativeLibraryUtil.LibraryContent(libPath, () => Load("native_lib_linux_x64", libPath))).ToArray(),
-                Win32 = winLibTableArray.Select(libPath => new NativeLibraryUtil.LibraryContent(libPath, () => Load("native_lib_win_x86", libPath))).ToArray(),
-                Win64 = winLibTableArray.Select(libPath => new NativeLibraryUtil.LibraryContent(libPath, () => Load("native_lib_win_x64", libPath))).ToArray(),
-                Mac64 = macLibTableArray.Select(libPath => new NativeLibraryUtil.LibraryContent(libPath, () => Load("native_lib_mac_x64", libPath))).ToArray(),
+                Linux64 = LoadLibraryContent(linuxLibTableArray, "native_lib_linux_x64"),
+                Win32 = LoadLibraryContent(winLibTableArray, "native_lib_win_x86"),
+                Win64 = LoadLibraryContent(winLibTableArray, "native_lib_win_x64"),
+                Mac64 = LoadLibraryContent(winLibTableArray, "native_lib_mac_x64"),
             };
 
             var loader = NativeLibraryUtil.LibraryLoader.Load(config);

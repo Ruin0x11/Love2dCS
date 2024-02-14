@@ -165,18 +165,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\native_lib\native_lib_linux_x64.zip">
-      <Link>native_lib_linux_x64.zip</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\native_lib\native_lib_win_x64.zip">
-      <Link>native_lib_win_x64.zip</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\native_lib\native_lib_win_x86.zip">
-      <Link>native_lib_win_x86.zip</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\native_lib\native_lib_mac_x64.zip">
-      <Link>native_lib_mac_x64.zip</Link>
-    </EmbeddedResource>
+    <EmbeddedResource Include="..\native_lib\*.zip" LinkBase="" />
   </ItemGroup>
 
 </Project>

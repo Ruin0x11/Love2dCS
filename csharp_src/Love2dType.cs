@@ -45,12 +45,7 @@ namespace Love
         }
 
         // real pointer
-        internal IntPtr p;
-
-        public static IntPtr AcquirePointer(LoveObject loveObject)
-        {
-            return loveObject == null ? IntPtr.Zero : loveObject.p;
-        }
+        internal IntPtr p = IntPtr.Zero;
 
         // disable no-param construct
         internal LoveObject() { }
@@ -59,14 +54,21 @@ namespace Love
         // part of C# response for release
         public void Dispose()
         {
-            // Log.Info("release : " + GetType());
+            //Log.Info("release : " + GetType() + " : " + GetReferenceCount());
+            //Love2dDll.wrap_love_dll_release_obj(p);
+            //p = IntPtr.Zero;
+        }
+
+        public int GetReferenceCount()
+        {
+            return Love2dDll.wrap_love_dll_Object_getReferenceCount(p);
+        }
+        
+        ~LoveObject()
+        {
             Love2dDll.wrap_love_dll_release_obj(p);
             p = IntPtr.Zero;
         }
-
-        // if we release resource in ~LoveObject() we may encounter crash
-        // when we exit program. I think the reason is that C# disorder the
-        // time of release chance between openGL and opengGL resource (for example Texture)
 
         /// <summary>
         /// 如果两个 LoveObject 指向的非托管对象一样，那么则返回相等

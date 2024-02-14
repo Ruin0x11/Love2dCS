@@ -97,6 +97,11 @@ namespace Love
         internal static delegateFunc_wrap_love_dll_release_obj wrap_love_dll_release_obj = wrap_love_dll_release_obj_value;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        internal delegate int delegateFunc_wrap_love_dll_Object_getReferenceCount(IntPtr p);
+        internal static delegateFunc_wrap_love_dll_Object_getReferenceCount wrap_love_dll_Object_getReferenceCount_value = LoadFunction<delegateFunc_wrap_love_dll_Object_getReferenceCount>("wrap_love_dll_Object_getReferenceCount");
+        internal static delegateFunc_wrap_love_dll_Object_getReferenceCount wrap_love_dll_Object_getReferenceCount = wrap_love_dll_Object_getReferenceCount_value;
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         internal delegate void delegateFunc_wrap_love_dll_retain_obj(IntPtr p);
         internal static delegateFunc_wrap_love_dll_retain_obj wrap_love_dll_retain_obj_value = LoadFunction<delegateFunc_wrap_love_dll_retain_obj>("wrap_love_dll_retain_obj");
         internal static delegateFunc_wrap_love_dll_retain_obj wrap_love_dll_retain_obj = wrap_love_dll_retain_obj_value;

@@ -62,11 +62,11 @@ namespace Love
                 return Arch.Unknow;
             }
 
-            [DllImport("kernel32")]
+            [DllImport("kernel32", SetLastError = true)]
             public static extern IntPtr LoadLibrary(string fileName);
-            [DllImport("kernel32")]
+            [DllImport("kernel32", SetLastError = true)]
             public static extern IntPtr GetProcAddress(IntPtr module, string procName);
-            [DllImport("kernel32")]
+            [DllImport("kernel32", SetLastError = true)]
             public static extern int FreeLibrary(IntPtr module);
 
             public bool LoadLibrary(string path, out IntPtr libPtr, out string errorInfo)
