@@ -104,15 +104,18 @@ namespace Love
             if (_isDisposed)
                 return;
 
-            if (!IsVolatile || IsMainThread())
+            if (p != IntPtr.Zero)
             {
-                // Main thread, so it's safe to reclaim GL resources.
-                Release(p);
-            }
-            else
-            {
-                // Inside finalizer thread, defer reclaiming until on main thread
-                _objectDisposeQueue.Enqueue(p);
+                if (!IsVolatile || IsMainThread())
+                {
+                    // Main thread, so it's safe to reclaim GL resources.
+                    Release(p);
+                }
+                else
+                {
+                    // Inside finalizer thread, defer reclaiming until on main thread
+                    _objectDisposeQueue.Enqueue(p);
+                }
             }
 
             p = IntPtr.Zero;
@@ -2556,7 +2559,7 @@ namespace Love
         /// Gets the type of the Cursor.
         /// </summary>
         /// <returns>The type of the Cursor.</returns>
-        new public Tuple<CursorType, SystemCursor> GetType()
+        public Tuple<CursorType, SystemCursor> GetCursorType()
         {
             int out_cursortype_type = 0;
             bool out_custom = false;
