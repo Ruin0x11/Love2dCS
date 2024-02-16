@@ -298,7 +298,7 @@ namespace Love
         {
             if (IsInit)
             {
-                Log.Warnning("[warning] Lua.Load: lua moudle already init. if you want execute file, call `Love.Lua.DoFile` please");
+                Log.Warning("[warning] Lua.Load: lua moudle already init. if you want execute file, call `Love.Lua.DoFile` please");
                 return;
             }
             Init();
@@ -314,7 +314,7 @@ namespace Love
         {
             if (IsInit)
             {
-                Log.Warnning("[warning] Lua.LoadFromString: lua moudle already init. if you want execute file, call `Love.Lua.DoFile` please");
+                Log.Warning("[warning] Lua.LoadFromString: lua moudle already init. if you want execute file, call `Love.Lua.DoFile` please");
                 return;
             }
             Init();

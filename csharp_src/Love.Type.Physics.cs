@@ -783,10 +783,10 @@ namespace Love
         {
             switch (shape.GetShapeType())
             {
-                case ShapeType.Chain: RetainLoveObject(shape.p); return NewObject<ChainShape>(shape.p);
-                case ShapeType.Circle: RetainLoveObject(shape.p); return NewObject<CircleShape>(shape.p);
-                case ShapeType.Edge: RetainLoveObject(shape.p); return NewObject<EdgeShape>(shape.p);
-                case ShapeType.Polygon: RetainLoveObject(shape.p); return NewObject<PolygonShape>(shape.p);
+                case ShapeType.Chain: Retain(shape.p); return NewObject<ChainShape>(shape.p);
+                case ShapeType.Circle: Retain(shape.p); return NewObject<CircleShape>(shape.p);
+                case ShapeType.Edge: Retain(shape.p); return NewObject<EdgeShape>(shape.p);
+                case ShapeType.Polygon: Retain(shape.p); return NewObject<PolygonShape>(shape.p);
             }
 
             return null;
@@ -889,17 +889,17 @@ namespace Love
         {
             switch (joint.GetJointType())
             {
-                case JointType.Distance: RetainLoveObject(joint.p); return NewObject<DistanceJoint>(joint.p);
-                case JointType.Revolute: RetainLoveObject(joint.p); return NewObject<RevoluteJoint>(joint.p);
-                case JointType.Prismatic: RetainLoveObject(joint.p); return NewObject<PrismaticJoint>(joint.p);
-                case JointType.Mouse: RetainLoveObject(joint.p); return NewObject<MouseJoint>(joint.p);
-                case JointType.Pulley: RetainLoveObject(joint.p); return NewObject<PulleyJoint>(joint.p);
-                case JointType.Gear: RetainLoveObject(joint.p); return NewObject<GearJoint>(joint.p);
-                case JointType.Friction: RetainLoveObject(joint.p); return NewObject<FrictionJoint>(joint.p);
-                case JointType.Weld: RetainLoveObject(joint.p); return NewObject<WeldJoint>(joint.p);
-                case JointType.Wheel: RetainLoveObject(joint.p); return NewObject<WheelJoint>(joint.p);
-                case JointType.Rope: RetainLoveObject(joint.p); return NewObject<RopeJoint>(joint.p);
-                case JointType.Motor: RetainLoveObject(joint.p); return NewObject<MotorJoint>(joint.p);
+                case JointType.Distance: Retain(joint.p); return NewObject<DistanceJoint>(joint.p);
+                case JointType.Revolute: Retain(joint.p); return NewObject<RevoluteJoint>(joint.p);
+                case JointType.Prismatic: Retain(joint.p); return NewObject<PrismaticJoint>(joint.p);
+                case JointType.Mouse: Retain(joint.p); return NewObject<MouseJoint>(joint.p);
+                case JointType.Pulley: Retain(joint.p); return NewObject<PulleyJoint>(joint.p);
+                case JointType.Gear: Retain(joint.p); return NewObject<GearJoint>(joint.p);
+                case JointType.Friction: Retain(joint.p); return NewObject<FrictionJoint>(joint.p);
+                case JointType.Weld: Retain(joint.p); return NewObject<WeldJoint>(joint.p);
+                case JointType.Wheel: Retain(joint.p); return NewObject<WheelJoint>(joint.p);
+                case JointType.Rope: Retain(joint.p); return NewObject<RopeJoint>(joint.p);
+                case JointType.Motor: Retain(joint.p); return NewObject<MotorJoint>(joint.p);
             }
 
             return null;

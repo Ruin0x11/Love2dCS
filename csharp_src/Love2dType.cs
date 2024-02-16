@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 
 namespace Love
 {
@@ -17,6 +18,31 @@ namespace Love
     /// </summary>
     public abstract partial class LoveObject : IDisposable
     {
+        /// <summary>
+        /// There is an issue known as the Object Oriented Language Problem when dealing
+        /// with OpenGL resources. They can only be deleted on the same thread the OpenGL
+        /// context exists on, but .NET's finalizer runs in a separate thread. Thus if a
+        /// volatile (OpenGL)-related object is attempted to be reclaimed from inside a finalizer,
+        /// its pointer is enqueued here and instead released when back on the main thread again.
+        /// </summary>
+        internal static Queue<IntPtr> _objectDisposeQueue = new();
+        internal static Thread? _mainThread = null;
+
+        internal static void Init()
+        {
+            _mainThread = Thread.CurrentThread;
+        }
+
+        internal static void Step()
+        {
+            while (_objectDisposeQueue.TryDequeue(out var ptr))
+            {
+                Release(ptr);
+            }
+        }
+
+        internal static bool IsMainThread() => Thread.CurrentThread == _mainThread;
+
         // use factory design pattern
         internal static T NewObject<T>(IntPtr ip) where T : LoveObject
         {
@@ -28,10 +54,6 @@ namespace Love
             var obj = (T)Activator.CreateInstance(typeof(T), BindingFlags.Instance | BindingFlags.NonPublic, null, null, null);
             obj.p = ip;
 
-            // part of C resonse for retain
-            // part of C# response for release
-            // Love2dDll.wrap_love_dll_retain_obj(ip);
-
             return obj;
         }
 
@@ -39,9 +61,18 @@ namespace Love
         /// danger !!!!!
         /// </summary>
         /// <param name="p"></param>
-        internal static void RetainLoveObject(IntPtr p)
+        internal static void Retain(IntPtr p)
         {
             Love2dDll.wrap_love_dll_retain_obj(p);
+        }
+
+        /// <summary>
+        /// danger !!!!!
+        /// </summary>
+        /// <param name="p"></param>
+        internal static void Release(IntPtr p)
+        {
+            Love2dDll.wrap_love_dll_release_obj(p);
         }
 
         // real pointer
@@ -50,13 +81,42 @@ namespace Love
         // disable no-param construct
         internal LoveObject() { }
 
-        // part of C resonse for retain
-        // part of C# response for release
+        private bool _isDisposed;
+
+        /// <summary>
+        /// <c>true</c> for anything that requires the resource destruction to run on the main thread,
+        /// such as OpenGL resources. In the .NET finalizer thread, the OpenGL context is
+        /// not guaranteed to be available, so those resources may be enqueued for destruction
+        /// at the end of the current frame.
+        /// </summary>
+        protected internal virtual bool IsVolatile => false;
+
         public void Dispose()
         {
-            //Log.Info("release : " + GetType() + " : " + GetReferenceCount());
-            //Love2dDll.wrap_love_dll_release_obj(p);
-            //p = IntPtr.Zero;
+            Dispose(manual: true);
+            GC.SuppressFinalize(this);
+        }
+
+        // part of C resonse for retain
+        // part of C# response for release
+        protected void Dispose(bool manual)
+        {
+            if (_isDisposed)
+                return;
+
+            if (!IsVolatile || IsMainThread())
+            {
+                // Main thread, so it's safe to reclaim GL resources.
+                Release(p);
+            }
+            else
+            {
+                // Inside finalizer thread, defer reclaiming until on main thread
+                _objectDisposeQueue.Enqueue(p);
+            }
+
+            p = IntPtr.Zero;
+            _isDisposed = true;
         }
 
         public int GetReferenceCount()
@@ -66,8 +126,7 @@ namespace Love
         
         ~LoveObject()
         {
-            Love2dDll.wrap_love_dll_release_obj(p);
-            p = IntPtr.Zero;
+            Dispose(manual: false);
         }
 
         /// <summary>
@@ -893,6 +952,8 @@ namespace Love
         /// </summary>
         protected Font() {}
 
+        protected internal override bool IsVolatile => true;
+
         /// <summary>
         /// Gets the height of the Font in pixels.
         /// </summary>
@@ -1071,7 +1132,6 @@ namespace Love
         /// disable construct
         /// </summary>
         protected Mesh() {}
-
 
         public void SetVertexAttribute(int vertIndex, int attrIndex, byte[] data)
         {
@@ -1901,6 +1961,8 @@ namespace Love
         /// </summary>
         protected Shader() {}
 
+        protected internal override bool IsVolatile => true;
+
         // Types of potential uniform (extern) variables used in love's shaders.
         public enum UniformType
         {
@@ -2176,7 +2238,7 @@ namespace Love
         /// <summary>
         /// disable construct
         /// </summary>
-        protected Texture() {}
+        protected Texture() { }
 
         /// <summary>
         /// Sets the mipmap filter mode for a Texture.
@@ -2487,6 +2549,8 @@ namespace Love
         /// disable construct
         /// </summary>
         protected Cursor() { }
+
+        protected internal override bool IsVolatile => true;
 
         /// <summary>
         /// Gets the type of the Cursor.
@@ -3016,6 +3080,8 @@ namespace Love
         /// disable construct
         /// </summary>
         protected Drawable() { }
+
+        protected internal override bool IsVolatile => true;
 
     }
     public partial class DroppedFile : File

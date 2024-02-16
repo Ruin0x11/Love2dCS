@@ -717,6 +717,8 @@ namespace Love
                     throw;
                 }
 
+                LoveObject.Init();
+
                 if (bootConfig.DefaultRandomSeed.HasValue)
                     Mathf.Init(bootConfig.DefaultRandomSeed.Value);
                 else
@@ -938,6 +940,7 @@ namespace Love
             box.SceneHandleEvent(scene);
 
             Love.Misc.InputBoost.Step();
+            LoveObject.Step();
         }
 
         public static void SystemStep(SystemStepConfig config)

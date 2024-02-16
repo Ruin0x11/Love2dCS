@@ -78,7 +78,7 @@ namespace Love
             }
         }
 
-        public static void Warnning(object info)
+        public static void Warning(object info)
         {
             if (IsPrintWarnning == false)
                 return;
